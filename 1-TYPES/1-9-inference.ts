@@ -23,10 +23,10 @@
 
     const result = add(1, 2); // :number 생략
 
-    function add1(x: number, y: number): number { // :number 생략
+    function add1(x: number, y: number): number {
         return x + y;
     }
 
-    const result1: number = add(1, 2); // :number 생략
+    const result1: number = add(1, 2);
 
 }
