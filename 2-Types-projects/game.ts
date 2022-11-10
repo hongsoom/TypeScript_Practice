@@ -9,7 +9,7 @@ const position = {
 
 type Direction = "left" | 'right' | 'up' | 'down';
 
-function move_direction(direction: Direction) {
+function move_(direction: Direction) {
     switch (direction) {
         case 'up':
             position.y += 1;
@@ -29,11 +29,11 @@ function move_direction(direction: Direction) {
 };
 
 console.log(position); // { x: 0, y: 0}
-move_direction('up');
+move_('up');
 console.log(position); // { x: 0, y: 1}
-move_direction('down');
+move_('down');
 console.log(position); // { x: 0, y: 0}
-move_direction('left');
+move_('left');
 console.log(position); // { x: -1, y: 0}
-move_direction('right');
+move_('right');
 console.log(position); // { x: 0, y: 0}
