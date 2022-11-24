@@ -1,4 +1,3 @@
-# TypeScript_Practice 
 
 ## ① 기본 타입</a>
 
