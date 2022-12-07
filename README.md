@@ -56,7 +56,7 @@
 
 - <a href="./3-OOP/3-3-encapsulation.ts"> `캡슐화`
 
-- <a href="./3-OOP/3-4-abstraction.ts"> ``
+- <a href="./3-OOP/3-4-abstraction.ts"> `추상화`
 
 - <a href="./3-OOP/3-5-inheritance.ts"> `상속`
 
