@@ -62,7 +62,7 @@
 
 - <a href="./3-OOP/3-6-polymorphism.ts"> `다향성`
 
-- <a href="./3-OOP/3-7-composition.ts"> ``
+- <a href="./3-OOP/3-7-composition.ts"> `composition`
 
-- <a href="./3-OOP/3-8-abstract.ts"> ``
+- <a href="./3-OOP/3-8-abstract.ts"> `abstract`
 
