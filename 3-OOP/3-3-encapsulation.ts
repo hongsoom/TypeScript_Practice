@@ -4,9 +4,9 @@
     hasMilk: boolean;
   };
 
-  // public
-  // private
-  // protected
+  // public 명시하지 않아도 기본적으로 설정 = 공개적
+  // private 외부에서 보이지 않도록(직접 변경하지 못하도록)
+  // protected 자식 클래스에서만 접근 가능
   class CoffeeMaker {
     private static BEANS_GRAMM_PER_SHOT: number = 7; // class level
     private coffeeBeans: number = 0; // instance (object) level
@@ -41,6 +41,37 @@
   const maker = CoffeeMaker.makeMachine(32);
   maker.fillCoffeeBeans(32);
 
+  class User1 {
+    firstName: string;
+    lastName: string;
+    fullName: string;
+    constructor(firstName: string, lastName: string) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.fullName = `${firstName} ${lastName}` // 한번 할당 되면 그대로 고정
+    }
+  }
+  const user1 = new User1('sumin', 'hong');
+  console.log(user1);
+  user1.firstName = 'eunmi';
+  console.log(user1.fullName) // sumin hong
+
+  class User2 {
+    firstName: string;
+    lastName: string;
+    get fullName(): string {
+      return `${this.firstName} ${this.lastName}`
+    }
+    constructor(firstName: string, lastName: string) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+  }
+  const user2 = new User1('sumin', 'hong');
+  console.log(user2);
+  user2.firstName = 'eunmi';
+  console.log(user2.fullName) // eunmi hong
+
   class User {
     get fullName(): string {
       return `${this.firstName} ${this.lastName}`;
@@ -54,7 +85,7 @@
       }
       this.internalAge = num;
     }
-    constructor(private firstName: string, public lastName: string) {}
+    constructor(private firstName: string, public lastName: string) { }
   }
   const user = new User('Steve', 'Jobs');
   user.age = 6;
