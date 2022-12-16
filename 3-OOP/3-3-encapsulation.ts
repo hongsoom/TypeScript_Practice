@@ -50,6 +50,63 @@
 
     const maker = CoffeeMaker.makeMachine(32);
     maker.fillCoffeeBeans(32);
+
+    class User {
+      firstName: string;
+      lastName: string;
+      fullName: string;
+      constructor(firstName: string, lastName: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.fullName = `${firstName} ${lastName}`
+      }
+    }
+    const user = new User('Steve', 'Jobs');
+    console.log(user.fullName) // Steve Jobs
+    user.firstName = 'Ellie';
+    console.log(user.fullName) // Steve Jobs
   }
 
+  /* Getter와 Setter
+    일반 멤버 변수처럼 사용이 가능하다
+    어떠한 계산을 해야할 때 유용하게 사용 가능
+  */
+  class User1 {
+    firstName: string;
+    lastName: string;
+    get fullName(): string { // fullName에 접근할 때마다 새로운 데이터를 만들고 개선할 수 있음
+      return `${this.firstName} ${this.lastName}`;
+    }
+    constructor(firstName: string, lastName: string) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+  }
+
+  const user1 = new User1('Steve', 'Jobs');
+  console.log(user1.fullName) // Steve Jobs
+  user1.firstName = 'Ellie';
+  console.log(user1.fullName) // Ellie Jobs
+
+  class User2 {
+    get fullName(): string { // fullName에 접근할 때마다 새로운 데이터를 만들고 개선할 수 있음
+      return `${this.firstName} ${this.lastName}`;
+    }
+    private internalAge = 4;
+    get age(): number {
+      return this.internalAge;
+    }
+    set age(num: number) {
+      if (num < 0) {
+        throw new Error('?');
+      }
+      this.internalAge = num;
+    }
+    constructor(private firstName: string, private lastName: string) {
+    }
+  }
+
+  const user2 = new User2('Steve', 'Jobs');
+  console.log(user2.fullName) // Steve Jobs
+  user2.age = 6; // 6
 }
