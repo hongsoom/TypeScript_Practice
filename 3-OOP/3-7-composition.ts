@@ -1,45 +1,50 @@
 {
+  /* composition
+  상속의 문제점) 자식 클래스에서 수정된 함수가 있을 경우, 그 아래 상속받은 또다른 자식 클래스에 영향을 미칠 수 있음
+          새로운 기능을 도입하려 할 때, 상속 구조가 어려움
+          타입스크립트에선 한 가지 이상의 부모 클래스를 상속 할 수 없음
+          (class SweetCaffeLatteMachine extends SweetCoffeeMaker,CaffeLatteMachine) X
+
+    각각의 class에서는 필요한 것을 매번 구현하는게 아니라
+    각각의 기능별로 class를 따로 만들어둠으로써 필요한 곳에서 가져다 쓰는 = composition
+    -> 코드의 재사용을 높여준다.
+
+    but 이것도 단점이 있음! -> 다른 클래스를 사용할 수 없음(제약이 생김)
+   */
+
   type CoffeeCup = {
     shots: number;
     hasMilk?: boolean;
     hasSugar?: boolean;
   };
 
-  interface MilkFrother {
-    makeMilk(cup: CoffeeCup): CoffeeCup;
-  }
-
-  interface SugarSource {
-    addSugar(cup: CoffeeCup): CoffeeCup;
-  }
-
-  class CheapMilkSteamer implements MilkFrother {
+  // 싸구려 우유 거품기
+  class CheapMilkSteamer {
+    private steamMilk(): void {
+      console.log('Steaming some milk... 🥛');
+    }
     makeMilk(cup: CoffeeCup): CoffeeCup {
-      console.log(`Steaming some milk🥛...`);
+      this.steamMilk();
       return {
         ...cup,
         hasMilk: true,
-      };
+      }
     }
   }
 
-  class FancyMilkSteamer implements MilkFrother {
-    makeMilk(cup: CoffeeCup): CoffeeCup {
-      console.log(`Fancy!!!! Steaming some milk🥛...`);
+  // 설탕 제조기
+  class AutomaticSugarMixer {
+    private getSuger() {
+      console.log('Getting some sugar from candy🍭');
+      return true;
+    }
+
+    addSugar(cup: CoffeeCup): CoffeeCup {
+      const sugar = this.getSuger();
       return {
         ...cup,
-        hasMilk: true,
-      };
-    }
-  }
-
-  class AutomaticSugarMixer implements SugarSource {
-    addSugar(cuppa: CoffeeCup): CoffeeCup {
-      console.log(`Adding sugar...`);
-      return {
-        ...cuppa,
-        hasSugar: true,
-      };
+        hasSugar: sugar,
+      }
     }
   }
 
@@ -98,50 +103,37 @@
   }
 
   class CaffeLatteMachine extends CoffeeMachine {
-    constructor(beans: number, public readonly serialNumber: string) {
+    constructor(beans: number, public readonly serialNumber: string, private milkFrother: CheapMilkSteamer) {
       super(beans);
-    }
-    private steamMilk(): void {
-      console.log('Steaming some milk... 🥛');
     }
     makeCoffee(shots: number): CoffeeCup {
       const coffee = super.makeCoffee(shots);
-      this.steamMilk();
-      return {
-        ...coffee,
-        hasMilk: true,
-      };
+      return this.milkFrother.makeMilk(coffee);
     }
   }
 
   class SweetCoffeeMaker extends CoffeeMachine {
+    constructor(beans: number, private sugar: AutomaticSugarMixer) {
+      super(beans);
+    }
     makeCoffee(shots: number): CoffeeCup {
       const coffee = super.makeCoffee(shots);
-      return {
-        ...coffee,
-        hasSugar: true,
-      };
+      return this.sugar.addSugar(coffee);
     }
   }
 
   class SweetCaffeLatteMachine extends CoffeeMachine {
     constructor(
-      beans: number,
-      private sugar: SugarSource,
-      private milk: MilkFrother,
+      private beans: number,
+      private sugar: AutomaticSugarMixer,
+      private milk: CheapMilkSteamer,
     ) {
       super(beans);
     }
     makeCoffee(shots: number): CoffeeCup {
       const coffee = super.makeCoffee(shots);
-      const milkCoffee = this.milk.makeMilk(coffee);
-      return this.sugar.addSugar(milkCoffee);
+      const suagrAdded = this.sugar.addSugar(coffee);
+      return this.milk.makeMilk(suagrAdded);
     }
   }
-  const machine = new SweetCaffeLatteMachine(
-    32,
-    new AutomaticSugarMixer(),
-    new FancyMilkSteamer()
-  );
-  machine.makeCoffee(2);
 }
