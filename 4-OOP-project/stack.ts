@@ -4,30 +4,28 @@ interface Stack {
   pop(): string;
 }
 
-type StackNode = {
+type StackNode = { // readonly : 불변성
   readonly value: string;
-  readonly next?: StackNode;
-};
+  readonly next?: StackNode; // 값이 있거나 없거나
+}
 
-class StackImpl implements Stack {
-  private _size: number = 0;
+class StackImp implements Stack {
+  private _size: number;
   private head?: StackNode;
 
-  constructor(private capacity: number) {}
   get size() {
     return this._size;
   }
+
   push(value: string) {
-    if (this.size === this.capacity) {
-      throw new Error('Stack is full!');
-    }
     const node: StackNode = { value, next: this.head };
     this.head = node;
     this._size++;
   }
-  pop(): string {
+
+  pop(): string { // null == undefinde
     if (this.head == null) {
-      throw new Error('Stack is empty!');
+      throw new Error('Stack is empty!')
     }
     const node = this.head;
     this.head = node.next;
@@ -36,12 +34,10 @@ class StackImpl implements Stack {
   }
 }
 
-const stack = new StackImpl(10);
+const stack = new StackImp();
 stack.push('Ellie 1');
 stack.push('Bob 2');
 stack.push('Steve 3');
 while (stack.size !== 0) {
-  console.log(stack.pop());
+  console.log(stack.pop()) // Steve 3 Bob 2 Ellie 1
 }
-
-stack.pop();
