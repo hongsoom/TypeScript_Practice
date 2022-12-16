@@ -1,4 +1,14 @@
 {
+  /* inheritance(상속)
+  공통적인 기능을 그대로 재사용하면서 자식 클래스에서만 특화된 기능들이 있다면 추가하고 사용가능
+
+  extends 키워드 : 상속
+  오버라이팅 : 자식 클래스에서 부모 클래스에 있는 함수를 덮어쓰임
+  super 키워드 : 자식 클래스에서 부모 클래스에 있는 함수를 이용하고 싶다면
+  constructor() : 자식 클래스에서 따로 생성자 함수를 구현하는 경우
+      꼭 super() 호출 = 부모의 생성자 함수를 호출한다.
+      부모의 생성자 함수에서 필요한 데이터가 있다면 꼭 받아와야하며 super를 이용하여 다시 부모에게 전달해야한다.
+  */
   type CoffeeCup = {
     shots: number;
     hasMilk: boolean;
@@ -12,7 +22,7 @@
     private static BEANS_GRAMM_PER_SHOT: number = 7; // class level
     private coffeeBeans: number = 0; // instance (object) level
 
-    constructor(coffeeBeans: number) {
+    public constructor(coffeeBeans: number) {
       this.coffeeBeans = coffeeBeans;
     }
 
@@ -63,15 +73,16 @@
       super(beans);
     }
     private steamMilk(): void {
-      console.log('Steaming some milk... 🥛');
+      console.log('Steaming some milk...🥛');
     }
+
     makeCoffee(shots: number): CoffeeCup {
       const coffee = super.makeCoffee(shots);
       this.steamMilk();
       return {
-        ...coffee,
+        shots,
         hasMilk: true,
-      };
+      }
     }
   }
 
