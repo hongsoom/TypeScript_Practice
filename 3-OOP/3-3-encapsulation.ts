@@ -1,93 +1,55 @@
 {
-  type CoffeeCup = {
-    shots: number;
-    hasMilk: boolean;
-  };
+  {
+    /*
+    문제점) 제약사항이 없기 때문에 외부에서 object 상태를 유효하지 않는 상태로 만들 수 있음
+    encapsulation을 사용해서 외부에서 보이는, 설정해서는 안되는 것들을 가리기!(은닉)
+    public : 기본
+    private : 외부에서 보이지 않음
+    protected : 외부에서 접근할 수 없지만 상속받은 자식 클래스에서만 접근이 가능
+    */
 
-  // public 명시하지 않아도 기본적으로 설정 = 공개적
-  // private 외부에서 보이지 않도록(직접 변경하지 못하도록)
-  // protected 자식 클래스에서만 접근 가능
-  class CoffeeMaker {
-    private static BEANS_GRAMM_PER_SHOT: number = 7; // class level
-    private coffeeBeans: number = 0; // instance (object) level
-
-    private constructor(coffeeBeans: number) {
-      this.coffeeBeans = coffeeBeans;
+    type CoffeeCup = {
+      shots: number;
+      hasMilk: boolean;
     }
 
-    static makeMachine(coffeeBeans: number): CoffeeMaker {
-      return new CoffeeMaker(coffeeBeans);
-    }
+    class CoffeeMaker {
+      private static BEANS_GRAMM_PER_SHOT: number = 7;
+      private coffeeBeans: number = 0;
 
-    fillCoffeeBeans(beans: number) {
-      if (beans < 0) {
-        throw new Error('value for beans should be greater than 0');
+      /* static를 붙여서 object를 만들 수 있는 함수 = makeMachine()
+        constructor를 사용해서 object를 만들 수 없게 하는 것
+        -> constructor에 private를 붙여 항상 static 메소드를 이용할 수 있도록 권장
+      */
+      private constructor(beans: number) {
+        this.coffeeBeans = beans;
       }
-      this.coffeeBeans += beans;
-    }
 
-    makeCoffee(shots: number): CoffeeCup {
-      if (this.coffeeBeans < shots * CoffeeMaker.BEANS_GRAMM_PER_SHOT) {
-        throw new Error('Not enough coffee beans!');
+      static makeMachine(coffeeBeans: number): CoffeeMaker {
+        return new CoffeeMaker(coffeeBeans);
       }
-      this.coffeeBeans -= shots * CoffeeMaker.BEANS_GRAMM_PER_SHOT;
-      return {
-        shots,
-        hasMilk: false,
-      };
-    }
-  }
 
-  const maker = CoffeeMaker.makeMachine(32);
-  maker.fillCoffeeBeans(32);
-
-  class User1 {
-    firstName: string;
-    lastName: string;
-    fullName: string;
-    constructor(firstName: string, lastName: string) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.fullName = `${firstName} ${lastName}` // 한번 할당 되면 그대로 고정
-    }
-  }
-  const user1 = new User1('sumin', 'hong');
-  console.log(user1);
-  user1.firstName = 'eunmi';
-  console.log(user1.fullName) // sumin hong
-
-  class User2 {
-    firstName: string;
-    lastName: string;
-    get fullName(): string {
-      return `${this.firstName} ${this.lastName}`
-    }
-    constructor(firstName: string, lastName: string) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-    }
-  }
-  const user2 = new User1('sumin', 'hong');
-  console.log(user2);
-  user2.firstName = 'eunmi';
-  console.log(user2.fullName) // eunmi hong
-
-  class User {
-    get fullName(): string {
-      return `${this.firstName} ${this.lastName}`;
-    }
-    private internalAge = 4;
-    get age(): number {
-      return this.internalAge;
-    }
-    set age(num: number) {
-      if (num < 0) {
+      fillCoffeeBeans(beans: number) {
+        if (beans < 0) {
+          throw new Error('value for beans should be greater than 0')
+        }
+        this.coffeeBeans += beans;
       }
-      this.internalAge = num;
+
+      makeCoffee(shots: number): CoffeeCup {
+        if (this.coffeeBeans < shots * CoffeeMaker.BEANS_GRAMM_PER_SHOT) {
+          throw new Error('Not enough coffee beans!');
+        }
+        this.coffeeBeans -= shots * CoffeeMaker.BEANS_GRAMM_PER_SHOT;
+        return {
+          shots,
+          hasMilk: false,
+        }
+      }
     }
-    constructor(private firstName: string, public lastName: string) { }
+
+    const maker = CoffeeMaker.makeMachine(32);
+    maker.fillCoffeeBeans(32);
   }
-  const user = new User('Steve', 'Jobs');
-  user.age = 6;
-  console.log(user.fullName);
+
 }
