@@ -1,4 +1,9 @@
 {
+  /* polymorphism(다향성)
+  한가지의 class나 interface를 통해서 다른 방식으로 다양하게 구현한 class를 만들 수 있다.
+  약속된 한가지 api를 호출함으로써 간편하게 사용 가능
+  */
+
   type CoffeeCup = {
     shots: number;
     hasMilk?: boolean;
@@ -93,9 +98,10 @@
     new CoffeeMachine(16),
     new CaffeLatteMachine(16, '1'),
     new SweetCoffeeMaker(16),
-  ];
+  ]
+
   machines.forEach(machine => {
-    console.log('-------------------------');
+    console.log('-----------------------');
     machine.makeCoffee(1);
-  });
+  })
 }
