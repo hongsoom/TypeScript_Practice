@@ -54,15 +54,42 @@
 
 - <a href="./3-OOP/3-2-class.ts"> `객체지향 프로그래밍`
 
+  - class 생성 : template
+  - let, const, function 키워드 X
+  - this
+  - constructor()
+  - new 키워드 : instance
+  - static 키워드 : class level
+
 - <a href="./3-OOP/3-3-encapsulation.ts"> `캡슐화`
+
+  - public
+  - private
+  - protected
 
 - <a href="./3-OOP/3-4-abstraction.ts"> `추상화`
 
+  - private : 외부에서 호출을 못하게
+  - interface
+
 - <a href="./3-OOP/3-5-inheritance.ts"> `상속`
+
+  - extends 키워드
+  - 오버라이팅
+  - super 키워드
+  - constructor()
 
 - <a href="./3-OOP/3-6-polymorphism.ts"> `다향성`
 
+  - 한가지의 class, interface
+
 - <a href="./3-OOP/3-7-composition.ts"> `composition`
 
+  - 상속의 문제점
+  - interface
+
 - <a href="./3-OOP/3-8-abstract.ts"> `abstract`
+
+  - abstract 키워드
+  - protected
 
