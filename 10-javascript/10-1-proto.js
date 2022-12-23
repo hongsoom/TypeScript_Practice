@@ -5,6 +5,17 @@ class를 이용해서 class를 선언하고 그 클래스를 extends로 상속�
 class에서 속성과 함수들을 정의한 것 처럼 반복적으로 쓰일 수 있도록
 즉, 객체지향프로그래밍을 할 수 있는 한가지의 방식으로써, 행동들을 재 사용할 수 있고(상속) 기존의 있는 object를 재사용할 수 있음 이것들을 prototype으로 이용해서 함
 코드를 재사용하기 위해서 만들어진 아이!
+
+typescript : javascript의 superset
+class, interface, generics, types 
+-> 자바스크립트에 없었던 것 이런것들을 이용해 객체지향 프로그래밍을 할 수 있음
+-> 컴파일러로 자바스크립트로 변환하면 결국엔 다 proto 타입으로 변환됨
+
+javascript : proto-based
+프로토타입을 기반으로 해서 객체지향 프로그래밍을 할 수 있음
+
+ES6 : class-like
+class도 proto를 기반으로 한 아이
 */
 
 /*
