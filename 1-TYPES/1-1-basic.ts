@@ -41,6 +41,13 @@
     notSure = 'he';
     notSure = true;
 
+    let a: unknown; // 미리 알지 못할 때 사용 
+
+    // a를 이용하고 싶으면 먼저 확인부터! typeof
+    if (typeof a === 'number') {
+        let b = a + 1
+    }
+
     // any - 어떤 것도 담을 수 있는 💩
     let anything: any = 0;
     anything = 'hello';
