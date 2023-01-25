@@ -12,8 +12,13 @@
         */
     }
 
-    // Tuple - 서로 다른 타입을 함께 가질 수 있는 배열 
-    // interface, type alias, class
+    const names: readonly string[] = ['1', '2'];
+
+    /* Tuple - 서로 다른 타입을 함께 가질 수 있는 배열 
+            항상 정해진 갯수의 요소를 가져야 하고 정해진 타입대로 순서대로 값을 넣어야함
+    interface, type alias, class */
+    const player: [string, number, boolean] = ['sumin', 27, true];
+
     let student: [string, number];
     student = ['name', 123];
     student[0] // name 💩
