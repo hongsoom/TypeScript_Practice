@@ -17,16 +17,16 @@
         console.log(message);
     }
 
-    function add(x: number, y: number) { // :number 생략
+    function add1(x: number, y: number) { // :number 생략
         return x + y;
     }
 
-    const result = add(1, 2); // :number 생략
+    const result = add1(1, 2); // :number 생략
 
-    function add1(x: number, y: number): number {
+    function add2(x: number, y: number): number {
         return x + y;
     }
 
-    const result1: number = add(1, 2);
+    const result1: number = add2(1, 2);
 
 }
