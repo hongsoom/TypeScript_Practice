@@ -29,6 +29,22 @@
         })
     }
 
+    type Player = {
+        name: string,
+        age?: number
+    }
+
+    function playerMaker(name: string): Player {
+        return {
+            name
+        }
+    }
+
+    const playerMaker1 = (name: string): Player => ({ name })
+
+    const sumin = playerMaker("sumin")
+    sumin.age = 12
+
     // Optional parameter - 꼭 전달하지 않아도 되는 인자가 있을 경우 '?'를 작성
     function printName(firstName: string, lasetName?: string) {
         console.log(firstName);
@@ -37,6 +53,17 @@
     printName('Steve', 'Jobs');
     printName('Steve');
     printName('Steve', undefined);
+
+    const player: {
+        name: string,
+        age?: number // 선택 (player가 age를 가지고 있거나 가지고 있지 않거나)
+    } = {
+        name: "sumin"
+    }
+
+    if (player.age && player.age < 10) {
+        // player.age &&가 없으면 에러! 선택적이기 때문에(optional parameter)
+    }
 
     // Default parameter - 전달하지 않으면 설정해둔 default 값이 들어감
     function printMessage(message: string = 'default message') {
